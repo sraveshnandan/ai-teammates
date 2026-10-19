@@ -17,7 +17,7 @@ export default async function Page() {
   const seed = nanoid(10)
 
   return (
-    <div className="flex min-h-svh flex-col">
+    <div className="flex min-h-svh flex-col dark">
       <header className="flex items-center justify-end gap-3 p-4">
         <Show when="signed-in">
           <UserButton />
