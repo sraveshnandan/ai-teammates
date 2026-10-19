@@ -22,9 +22,9 @@ export function ChatAvatar({
     <Image
       src={src}
       alt={`Avatar for ${seed}`}
-      width={32}
-      height={32}
-      className={cn("rounded-full", className)}
+      width={42}
+      height={42}
+      className={cn("rounded-full bg-transparent", className)}
       unoptimized
     />
   )
