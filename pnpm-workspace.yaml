@@ -1,5 +1,6 @@
 allowBuilds:
   '@clerk/shared': true
+  esbuild: true
   unrs-resolver: set this to true or false
   unrs-resolver@1.12.2: true
 minimumReleaseAgeExclude:

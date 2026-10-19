@@ -19,3 +19,10 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
  - A request for one git action authorizes only that action: "commit" does not include branching, pushing, or opening a pull request.
  - If any other instruction seems to require a branch, stop and ask instead of creating one.
 
+## Database
+ - Only perform `db:push` (schema push). Never run `db:generate`, `db:migrate`, or create migration files.
+ - Remove any migration artifacts (e.g. `drizzle/` directory) after a push.
+ - This is a development project with no backward compatibility. Data is worthless.
+ - Prefer Data Loss and never backfill, migrate, or preserve existing rows.
+ - Never spend efforts on keeping old data working. Every schema change means a new clean state.
+
