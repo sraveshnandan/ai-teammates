@@ -1,18 +1,27 @@
+import { nanoid } from "nanoid"
 import {
   pgTable,
-  serial,
   text,
   timestamp,
+  index,
 } from "drizzle-orm/pg-core"
 
-export const users = pgTable("users", {
-  id: serial("id").primaryKey(),
-  clerkId: text("clerk_id").notNull().unique(),
-  email: text("email").notNull(),
-  name: text("name"),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  updatedAt: timestamp("updated_at").defaultNow().notNull(),
-})
+export const bots = pgTable(
+  "bots",
+  {
+    id: text("id").$default(nanoid).primaryKey(),
+    userid: text("userid").notNull(),
+    name: text("name").notNull(),
+    avatar: text("avatar").$default(nanoid).notNull(),
+    job: text("job").notNull(),
+    instructions: text("instructions"),
+    sandboxid: text("sandboxid"),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (table) => [
+    index("userid_idx").on(table.userid),
+  ]
+)
 
-export type User = typeof users
-export type NewUser = Omit<User, "id" | "createdAt" | "updatedAt">
+export type Bot = typeof bots
+export type NewBot = Omit<Bot, "id" | "avatar" | "createdAt">

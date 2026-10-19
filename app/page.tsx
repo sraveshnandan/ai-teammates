@@ -1,38 +1,45 @@
+import { auth } from "@clerk/nextjs/server"
 import { Show, UserButton } from "@clerk/nextjs"
 import { Button } from "@/components/ui/button"
+import { ChatAvatar } from "@/components/chat-avatar"
+import {
+  Empty,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+  EmptyDescription,
+  EmptyContent,
+} from "@/components/ui/empty"
+import { nanoid } from "nanoid"
 
-export default function Page() {
+export default async function Page() {
+  await auth.protect()
+  const seed = nanoid(10)
+
   return (
     <div className="flex min-h-svh flex-col">
       <header className="flex items-center justify-end gap-3 p-4">
-        <Show when="signed-out">
-          <Button render={<a href="/sign-in" />} variant="ghost" size="sm">
-            Sign in
-          </Button>
-          <Button render={<a href="/sign-up" />} size="sm">
-            Sign up
-          </Button>
-        </Show>
         <Show when="signed-in">
           <UserButton />
         </Show>
       </header>
       <main className="flex flex-1 items-center justify-center p-6">
-        <div className="flex max-w-md flex-col gap-4 text-sm leading-loose">
-          <div>
-            <h1 className="font-medium">Project ready!</h1>
-            <p>You may now add components and start building.</p>
-            <p>We&apos;ve already added the button component for you.</p>
-            <Button className="mt-2">Button</Button>
-          </div>
-          <Show when="signed-in">
-            <div className="font-mono text-xs text-muted-foreground">
-              You are signed in.
-            </div>
-          </Show>
-          <div className="font-mono text-xs text-muted-foreground">
-            (Press <kbd>d</kbd> to toggle dark mode)
-          </div>
+        <div className="flex w-full max-w-md flex-col">
+          <Empty>
+            <EmptyHeader>
+              <EmptyMedia variant="icon">
+                <ChatAvatar seed={seed} animated className="size-8" />
+              </EmptyMedia>
+              <EmptyTitle>No bots yet</EmptyTitle>
+              <EmptyDescription>
+                Create your first bot to get started. Bots are AI teammates
+                that finish the work for you.
+              </EmptyDescription>
+            </EmptyHeader>
+            <EmptyContent>
+              <Button size="sm">Create bot</Button>
+            </EmptyContent>
+          </Empty>
         </div>
       </main>
     </div>
