@@ -1,4 +1,5 @@
 allowBuilds:
   unrs-resolver: set this to true or false
+  unrs-resolver@1.12.2: true
 minimumReleaseAgeExclude:
   - shadcn@4.22.1
